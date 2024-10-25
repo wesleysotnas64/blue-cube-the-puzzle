@@ -6,6 +6,10 @@ public class PlayerInteraction : MonoBehaviour
 {
     void OnTriggerExit(Collider other)
     {
-        Destroy(other.gameObject.transform.parent.transform.gameObject);
+        string tag = other.gameObject.tag;
+        if (tag == "Platform")
+        {
+            StartCoroutine(other.transform.parent.GetComponent<PlatformPresentation>().PresentationOutCoroutine());
+        }
     }
 }

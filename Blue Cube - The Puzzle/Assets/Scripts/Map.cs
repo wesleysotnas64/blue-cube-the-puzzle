@@ -42,7 +42,8 @@ public class Map : MonoBehaviour
                 if(tilesMatrix[i, j] == 1)
                 {
                     GameObject platform = Instantiate(platform_1);
-                    platform.transform.position = new Vector3(i, -10, j);
+                    platform.transform.position = new Vector3(i, 0, j);
+                    platform.GetComponent<PlatformPresentation>().Init();
                 }
             }
         }
