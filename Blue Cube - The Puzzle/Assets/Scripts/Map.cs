@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    public GameObject platform_1;
+    public GameObject platform_Init; // 1
+    public GameObject platform_Final; // 2
+    public GameObject platform_1; // 3
     public int idMap;
     public int[,] tilesMatrix;
     public int rows;
@@ -39,14 +41,34 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < columns; j++)
             {
-                if(tilesMatrix[i, j] == 1)
+
+                switch (tilesMatrix[i, j])
                 {
-                    GameObject platform = Instantiate(platform_1);
-                    platform.transform.position = new Vector3(i, 0, j);
-                    platform.GetComponent<PlatformPresentation>().Init();
+                    case 1:
+                        InstantiateTile(platform_Init, i, j);
+                        break;
+                    
+                    case 2:
+                        InstantiateTile(platform_Final, i, j);
+                        break;
+
+                    case 3:
+                        InstantiateTile(platform_1, i, j);
+                        break;
+
+                    default:
+                        break;
                 }
+
             }
         }
+    }
+
+    private void InstantiateTile(GameObject _gameObject, int _xPosition, int _zPosition)
+    {
+        GameObject platform = Instantiate(_gameObject);
+        platform.transform.position = new Vector3(_xPosition, 0, _zPosition);
+        platform.GetComponent<PlatformPresentation>().Init();
     }
 
     private void InitMap()
@@ -70,11 +92,11 @@ public class Map : MonoBehaviour
 
         //Tiles
         tilesMatrix[0,0] = 1;
-        tilesMatrix[1,0] = 1;
-        tilesMatrix[1,1] = 1;
-        tilesMatrix[2,1] = 1;
-        tilesMatrix[3,1] = 1;
-        tilesMatrix[4,1] = 1;
-        tilesMatrix[4,2] = 1;
+        tilesMatrix[1,0] = 3;
+        tilesMatrix[1,1] = 3;
+        tilesMatrix[2,1] = 3;
+        tilesMatrix[3,1] = 3;
+        tilesMatrix[4,1] = 3;
+        tilesMatrix[4,2] = 2;
     }
 }
