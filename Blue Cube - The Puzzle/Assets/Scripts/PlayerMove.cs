@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum PivoDirection
 {
@@ -10,6 +11,12 @@ public enum PivoDirection
     Right = 3    // Índice 3 corresponde a 'right'
 }
 
+public enum ScaleAnim
+{
+    Grow = 0,   //Crescer
+    Shrink = 1  //Encolher
+}
+
 public class PlayerMove : MonoBehaviour
 {
     public GameObject player;
@@ -17,6 +24,8 @@ public class PlayerMove : MonoBehaviour
     public List<GameObject> pivoList; //[0] foward | [1] back | [2] left | [3] right 
 
     public bool rotating;
+    public bool scaleYAnimation;
+    public bool colapsed;
     public float duration;
     public Vector3 targetRotation;
     public Vector3 displacement;
@@ -28,10 +37,24 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && rotating == false) MoveFoward();
-        if(Input.GetKeyDown(KeyCode.D) && rotating == false) MoveBack();
-        if(Input.GetKeyDown(KeyCode.E) && rotating == false) MoveLeft();
-        if(Input.GetKeyDown(KeyCode.F) && rotating == false) MoveRight();
+        if(Input.GetKeyDown(KeyCode.R) && rotating == false && colapsed == false && scaleYAnimation == false) MoveFoward();
+        if(Input.GetKeyDown(KeyCode.D) && rotating == false && colapsed == false && scaleYAnimation == false) MoveBack();
+        if(Input.GetKeyDown(KeyCode.E) && rotating == false && colapsed == false && scaleYAnimation == false) MoveLeft();
+        if(Input.GetKeyDown(KeyCode.F) && rotating == false && colapsed == false && scaleYAnimation == false) MoveRight();
+
+        //Teste de escala
+        if(Input.GetKeyDown(KeyCode.U) && scaleYAnimation == false) GrowScaleY();
+        if(Input.GetKeyDown(KeyCode.J) && scaleYAnimation == false) ShrinkScaleY();
+    }
+
+    public void GrowScaleY()
+    {
+        StartCoroutine(ScaleYAnimatioCoroutine(ScaleAnim.Grow));
+    }
+
+    public void ShrinkScaleY()
+    {
+        StartCoroutine(ScaleYAnimatioCoroutine(ScaleAnim.Shrink));
     }
 
     private void MoveFoward()
@@ -92,5 +115,40 @@ public class PlayerMove : MonoBehaviour
         }
 
         rotating = false;
+    }
+
+    private IEnumerator ScaleYAnimatioCoroutine(ScaleAnim anim)
+    {
+        scaleYAnimation = true;
+
+        Vector3 initialScale = Vector3.zero;
+        Vector3 finalScale = Vector3.zero;
+
+        if(anim == ScaleAnim.Grow)
+        {
+            initialScale = new Vector3(1, 0, 1);
+            finalScale = new Vector3(1, 1, 1);
+            colapsed = false;
+        }
+        else if(anim == ScaleAnim.Shrink)
+        {
+            initialScale = new Vector3(1, 1, 1);
+            finalScale = new Vector3(1, 0, 1);
+            colapsed = true;
+        }
+
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            transform.localScale = Vector3.Lerp(initialScale, finalScale, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = finalScale;
+
+        scaleYAnimation = false;
     }
 }

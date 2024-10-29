@@ -97,11 +97,11 @@ public class Map : MonoBehaviour
 
         //Tiles
         tilesMatrix[0,0] = 1;
-        tilesMatrix[1,0] = 4;
+        tilesMatrix[1,0] = 3;
         tilesMatrix[1,1] = 4;
         tilesMatrix[2,1] = 4;
-        tilesMatrix[3,1] = 4;
-        tilesMatrix[4,1] = 4;
+        tilesMatrix[3,1] = 3;
+        tilesMatrix[4,1] = 3;
         tilesMatrix[4,2] = 2;
     }
 }
