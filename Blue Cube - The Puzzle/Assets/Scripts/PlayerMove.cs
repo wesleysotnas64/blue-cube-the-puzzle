@@ -119,6 +119,7 @@ public class PlayerMove : MonoBehaviour
 
     private IEnumerator ScaleYAnimatioCoroutine(ScaleAnim anim)
     {
+        yield return new WaitForSeconds(0.05f);
         scaleYAnimation = true;
 
         Vector3 initialScale = Vector3.zero;
