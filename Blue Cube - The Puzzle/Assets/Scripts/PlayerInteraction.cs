@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
         string tag = other.gameObject.tag;
         if (tag == "Platform")
         {
-            StartCoroutine(other.transform.parent.GetComponent<PlatformPresentation>().PresentationOutCoroutine());
+            other.transform.parent.GetComponent<Platform>().LeftPlatform();
         }
     }
 }

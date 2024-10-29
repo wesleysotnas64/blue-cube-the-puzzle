@@ -230,7 +230,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 100
+  field of view: 50
   orthographic: 1
   orthographic size: 10
   m_Depth: -1
@@ -685,6 +685,8 @@ MonoBehaviour:
   platform_Final: {fileID: 8281210580583148402, guid: 4cdc9dc1a465ccd47b546b343fc3f47d,
     type: 3}
   platform_1: {fileID: 3534201567982391670, guid: a1efaaad8785c8d458004fa679b80b2a,
+    type: 3}
+  platform_2: {fileID: 6276672716874940375, guid: 0117967d7c205df47b234c68d91713b2,
     type: 3}
   idMap: 0
   rows: 0

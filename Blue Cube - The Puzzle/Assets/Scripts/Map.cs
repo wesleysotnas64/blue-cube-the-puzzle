@@ -7,6 +7,7 @@ public class Map : MonoBehaviour
     public GameObject platform_Init; // 1
     public GameObject platform_Final; // 2
     public GameObject platform_1; // 3
+    public GameObject platform_2; // 4
     public int idMap;
     public int[,] tilesMatrix;
     public int rows;
@@ -56,6 +57,10 @@ public class Map : MonoBehaviour
                         InstantiateTile(platform_1, i, j);
                         break;
 
+                    case 4:
+                        InstantiateTile(platform_2, i, j);
+                        break;
+
                     default:
                         break;
                 }
@@ -92,11 +97,11 @@ public class Map : MonoBehaviour
 
         //Tiles
         tilesMatrix[0,0] = 1;
-        tilesMatrix[1,0] = 3;
-        tilesMatrix[1,1] = 3;
-        tilesMatrix[2,1] = 3;
-        tilesMatrix[3,1] = 3;
-        tilesMatrix[4,1] = 3;
+        tilesMatrix[1,0] = 4;
+        tilesMatrix[1,1] = 4;
+        tilesMatrix[2,1] = 4;
+        tilesMatrix[3,1] = 4;
+        tilesMatrix[4,1] = 4;
         tilesMatrix[4,2] = 2;
     }
 }

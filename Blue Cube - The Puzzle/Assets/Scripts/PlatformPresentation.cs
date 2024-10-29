@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformPresentation : MonoBehaviour
 {
-    public float duration;
+    private float duration;
     private Vector3 initialPosition;
     private Vector3 finalPosition;
 
@@ -21,7 +21,7 @@ public class PlatformPresentation : MonoBehaviour
         StartCoroutine(PresentationInCoroutine());
     }
 
-    public IEnumerator PresentationInCoroutine()
+    public IEnumerator PresentationInCoroutine() //In
     {
 
         float elapsedTime = 0f;
@@ -31,7 +31,6 @@ public class PlatformPresentation : MonoBehaviour
             transform.position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime / duration);
             transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
-            // elapsedTime = elapsedTime >= 1 ? 1 : elapsedTime;
             yield return null;
         }
 
@@ -39,7 +38,7 @@ public class PlatformPresentation : MonoBehaviour
         transform.localScale = Vector3.one;
     }
 
-    public IEnumerator PresentationOutCoroutine()
+    public IEnumerator PresentationOutCoroutine() //Out
     {
 
         float elapsedTime = 0f;
@@ -54,5 +53,7 @@ public class PlatformPresentation : MonoBehaviour
 
         transform.position = initialPosition;
         transform.localScale = Vector3.zero;
+
+        // GetComponent<Platform>().DestroyPlatform();
     }
 }
