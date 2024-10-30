@@ -54,6 +54,6 @@ public class PlatformPresentation : MonoBehaviour
         transform.position = initialPosition;
         transform.localScale = Vector3.zero;
 
-        // GetComponent<Platform>().DestroyPlatform();
+        GetComponent<Platform>().DestroyPlatform();
     }
 }

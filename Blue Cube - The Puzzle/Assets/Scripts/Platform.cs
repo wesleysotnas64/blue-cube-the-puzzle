@@ -6,6 +6,7 @@ public class Platform : MonoBehaviour
 {
     public int form;
     public GameObject cube;
+    public GameObject fallPlatform;
     
     void Start()
     {
@@ -34,5 +35,12 @@ public class Platform : MonoBehaviour
     public void InitForm2()
     {
         cube.GetComponent<MeshRenderer>().material.color = Color.HSVToRGB(0, 0.75f, 1);
+    }
+
+    public void DestroyPlatform()
+    {
+        GameObject platform = Instantiate(fallPlatform);
+        platform.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        Destroy(gameObject);
     }
 }

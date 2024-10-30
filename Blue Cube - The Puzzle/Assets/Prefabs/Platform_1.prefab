@@ -144,6 +144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   form: 1
   cube: {fileID: 1817905566348123834}
+  fallPlatform: {fileID: 9042685038468271378, guid: 52caabc60566dce499728988926afac7,
+    type: 3}
 --- !u!1 &8755128122537070193
 GameObject:
   m_ObjectHideFlags: 0

@@ -171,7 +171,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 initialPosition = cube.transform.position;
         Vector3 finalPosition = cube.transform.position + new Vector3(0, -5, 0);
 
-        float speedAnimation = 2;
+        float speedAnimation = 0.75f;
 
         float elapsedTime = 0f;
         while (elapsedTime < duration*speedAnimation)

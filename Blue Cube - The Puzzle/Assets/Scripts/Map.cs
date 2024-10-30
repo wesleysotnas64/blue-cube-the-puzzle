@@ -96,14 +96,30 @@ public class Map : MonoBehaviour
 
     private void Map_Test()
     {
-        rows = 5;
-        columns = 3;
+        rows = 11;
+        columns = 6;
         InitTilesMatrix();
 
         //Tiles
         tilesMatrix[1,1] = 1;
+
         tilesMatrix[2,1] = 3;
-        tilesMatrix[3,1] = 2;
+        tilesMatrix[2,2] = 3;
+        tilesMatrix[3,2] = 3;
+        tilesMatrix[4,2] = 3;
+        tilesMatrix[5,2] = 3;
+        tilesMatrix[5,3] = 4;
+        tilesMatrix[5,4] = 4;
+        tilesMatrix[6,4] = 3;
+        tilesMatrix[6,3] = 3;
+        tilesMatrix[6,2] = 3;
+        tilesMatrix[7,2] = 4;
+        tilesMatrix[7,3] = 4;
+        tilesMatrix[8,3] = 3;
+        tilesMatrix[9,3] = 3;
+        tilesMatrix[9,2] = 3;
+
+        tilesMatrix[9,1] = 2;
 
         ApplyFallPlatform();
     }
