@@ -8,6 +8,7 @@ public class Map : MonoBehaviour
     public GameObject platform_Final; // 2
     public GameObject platform_1; // 3
     public GameObject platform_2; // 4
+    public GameObject platform_Fall; //5
     public int idMap;
     public int[,] tilesMatrix;
     public int rows;
@@ -61,6 +62,10 @@ public class Map : MonoBehaviour
                         InstantiateTile(platform_2, i, j);
                         break;
 
+                    case 5:
+                        InstantiateTile(platform_Fall, i, j);
+                        break;
+
                     default:
                         break;
                 }
@@ -96,12 +101,53 @@ public class Map : MonoBehaviour
         InitTilesMatrix();
 
         //Tiles
-        tilesMatrix[0,0] = 1;
-        tilesMatrix[1,0] = 3;
-        tilesMatrix[1,1] = 4;
-        tilesMatrix[2,1] = 4;
-        tilesMatrix[3,1] = 3;
-        tilesMatrix[4,1] = 3;
-        tilesMatrix[4,2] = 2;
+        tilesMatrix[1,1] = 1;
+        tilesMatrix[2,1] = 3;
+        tilesMatrix[3,1] = 2;
+
+        ApplyFallPlatform();
+    }
+
+    public void ApplyFallPlatform()
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if(tilesMatrix[i,j] == 0)
+                {
+                    if(HasAdjacentPlatform(i, j)) tilesMatrix[i, j] = 5;
+                }
+            }    
+        }
+    }
+
+    private bool HasAdjacentPlatform(int i, int j)
+    {
+
+        if(OutOfRange(rows, columns, i-1, j) == false) //UP
+        {
+            if(tilesMatrix[i-1, j] != 0 && tilesMatrix[i-1, j] != 5) return true;
+        }
+        if(OutOfRange(rows, columns, i+1, j) == false) //DAWN
+        {
+            if(tilesMatrix[i+1, j] != 0 && tilesMatrix[i+1, j] != 5) return true;
+        }
+        if(OutOfRange(rows, columns, i, j-1) == false) //LEFT
+        {
+            if(tilesMatrix[i, j-1] != 0 && tilesMatrix[i, j-1] != 5) return true;
+        }
+        if(OutOfRange(rows, columns, i, j+1) == false) //RIGHT
+        {
+            if(tilesMatrix[i, j+1] != 0 && tilesMatrix[i, j+1] != 5) return true;
+        }
+
+        return false;
+    }
+
+    private bool OutOfRange(int rowSize, int colSize, int i, int j)
+    {
+        if(i < 0 || j < 0 || i >= rowSize || j >= colSize) return true;
+        else return false;
     }
 }

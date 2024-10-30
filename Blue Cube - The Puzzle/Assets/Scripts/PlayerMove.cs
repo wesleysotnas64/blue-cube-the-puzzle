@@ -25,7 +25,9 @@ public class PlayerMove : MonoBehaviour
 
     public bool rotating;
     public bool scaleYAnimation;
+    public bool fallAnimation;
     public bool colapsed;
+    public bool falled;
     public float duration;
     public Vector3 targetRotation;
     public Vector3 displacement;
@@ -37,14 +39,18 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) && rotating == false && colapsed == false && scaleYAnimation == false) MoveFoward();
-        if(Input.GetKeyDown(KeyCode.D) && rotating == false && colapsed == false && scaleYAnimation == false) MoveBack();
-        if(Input.GetKeyDown(KeyCode.E) && rotating == false && colapsed == false && scaleYAnimation == false) MoveLeft();
-        if(Input.GetKeyDown(KeyCode.F) && rotating == false && colapsed == false && scaleYAnimation == false) MoveRight();
+        if(Input.GetKeyDown(KeyCode.R) && !rotating && !colapsed && !scaleYAnimation && !fallAnimation && !falled) MoveFoward();
+        if(Input.GetKeyDown(KeyCode.D) && !rotating && !colapsed && !scaleYAnimation && !fallAnimation && !falled) MoveBack();
+        if(Input.GetKeyDown(KeyCode.E) && !rotating && !colapsed && !scaleYAnimation && !fallAnimation && !falled) MoveLeft();
+        if(Input.GetKeyDown(KeyCode.F) && !rotating && !colapsed && !scaleYAnimation && !fallAnimation && !falled) MoveRight();
 
         //Teste de escala
         if(Input.GetKeyDown(KeyCode.U) && scaleYAnimation == false) GrowScaleY();
         if(Input.GetKeyDown(KeyCode.J) && scaleYAnimation == false) ShrinkScaleY();
+
+        //Teste Queda
+        if(Input.GetKeyDown(KeyCode.P) && rotating == false) Fall();
+
     }
 
     public void GrowScaleY()
@@ -55,6 +61,11 @@ public class PlayerMove : MonoBehaviour
     public void ShrinkScaleY()
     {
         StartCoroutine(ScaleYAnimatioCoroutine(ScaleAnim.Shrink));
+    }
+
+    public void Fall()
+    {
+        StartCoroutine(FallAnimationCoroutine());
     }
 
     private void MoveFoward()
@@ -151,5 +162,29 @@ public class PlayerMove : MonoBehaviour
         transform.localScale = finalScale;
 
         scaleYAnimation = false;
+    }
+
+    private IEnumerator FallAnimationCoroutine()
+    {
+        fallAnimation = true;
+
+        Vector3 initialPosition = cube.transform.position;
+        Vector3 finalPosition = cube.transform.position + new Vector3(0, -5, 0);
+
+        float speedAnimation = 2;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < duration*speedAnimation)
+        {
+            cube.transform.position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime / (duration*speedAnimation));
+            cube.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, elapsedTime / (duration*speedAnimation));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        cube.transform.position = finalPosition;
+        cube.transform.localScale = Vector3.zero;
+        fallAnimation = false;
+        falled = true;
     }
 }

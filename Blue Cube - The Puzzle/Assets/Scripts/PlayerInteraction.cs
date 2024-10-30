@@ -17,10 +17,14 @@ public class PlayerInteraction : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         string tag = other.gameObject.tag;
-        Debug.Log("Chegou na plataforma final! "+ tag);
+
         if (tag == "Platform_Final")
         {
             playerMove.ShrinkScaleY();
+        }
+        else if (tag == "Platform_Fall")
+        {
+            playerMove.Fall();
         }
     }
 }
