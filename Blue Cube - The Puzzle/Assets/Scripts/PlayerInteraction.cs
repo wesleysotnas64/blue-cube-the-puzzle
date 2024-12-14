@@ -26,5 +26,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             playerMove.Fall();
         }
+        else if(tag == "Platform_Teleport")
+        {
+            playerMove.TeleportTo(other.gameObject.GetComponent<Platform>().toTeleportPlatform);
+        }
     }
 }

@@ -53,6 +53,11 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    public void TeleportTo(GameObject _gameObjectDestiny)
+    {
+        StartCoroutine(TeleportCoroutine(_gameObjectDestiny));
+    }
+
     public void GrowScaleY()
     {
         StartCoroutine(ScaleYAnimatioCoroutine(ScaleAnim.Grow));
@@ -138,14 +143,14 @@ public class PlayerMove : MonoBehaviour
 
         if(anim == ScaleAnim.Grow)
         {
-            initialScale = new Vector3(1, 0, 1);
+            initialScale = new Vector3(1, 0.01f, 1);
             finalScale = new Vector3(1, 1, 1);
             colapsed = false;
         }
         else if(anim == ScaleAnim.Shrink)
         {
             initialScale = new Vector3(1, 1, 1);
-            finalScale = new Vector3(1, 0, 1);
+            finalScale = new Vector3(1, 0.01f, 1);
             colapsed = true;
         }
 
@@ -171,7 +176,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 initialPosition = cube.transform.position;
         Vector3 finalPosition = cube.transform.position + new Vector3(0, -5, 0);
 
-        float speedAnimation = 0.75f;
+        float speedAnimation = 1.5f;
 
         float elapsedTime = 0f;
         while (elapsedTime < duration*speedAnimation)
@@ -186,5 +191,18 @@ public class PlayerMove : MonoBehaviour
         cube.transform.localScale = Vector3.zero;
         fallAnimation = false;
         falled = true;
+    }
+
+    private IEnumerator TeleportCoroutine(GameObject _gameObjectDestiny)
+    {
+        yield return new WaitForSeconds(0.05f);
+        ShrinkScaleY();
+        yield return new WaitForSeconds(duration);
+
+        Vector3 finalPosition = _gameObjectDestiny.transform.position;
+        cube.transform.position = new Vector3(finalPosition.x, cube.transform.position.y, finalPosition.z);
+
+        GrowScaleY();
+
     }
 }

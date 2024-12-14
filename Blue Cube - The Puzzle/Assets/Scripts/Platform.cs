@@ -7,6 +7,7 @@ public class Platform : MonoBehaviour
     public int form;
     public GameObject cube;
     public GameObject fallPlatform;
+    public GameObject toTeleportPlatform;
     
     void Start()
     {
